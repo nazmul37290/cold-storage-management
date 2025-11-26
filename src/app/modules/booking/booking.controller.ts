@@ -3,6 +3,7 @@ import { BookingServices } from './booking.services';
 
 const createBooking = catchAsync(async (req, res, next) => {
   const { data } = req.body;
+  console.log(data);
   const result = await BookingServices.createBookingIntoDB(data);
 
   res.status(200).json({
