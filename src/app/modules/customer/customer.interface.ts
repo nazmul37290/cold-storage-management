@@ -1,5 +1,5 @@
 export type TCustomer = {
-  customerId: string;               
+  customerId?: string;               
   name: string;
   address: string;
   phone: string;

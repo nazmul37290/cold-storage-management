@@ -20,6 +20,33 @@ const createBookingIntoDB = async (payload: TBooking) => {
   return result;
 };
 
+
+const getAllBookings = async () => {
+  const result = await BookingModel.find();
+  return result;
+};
+
+const getBookingById = async (bookingNo: string) => {
+  const result = await BookingModel.findById( bookingNo );
+ 
+  return result;
+};
+
+const updateBookingInDB = async (bookingNo: string, data: Partial<TBooking>) => {
+  console.log(bookingNo)
+  const result = await BookingModel.findByIdAndUpdate( bookingNo , data, { new: true });
+  return result;
+};
+
+const deleteBookingInDB = async (bookingNo: string) => {
+  const result = await BookingModel.findByIdAndDelete( bookingNo );
+  return result;
+};
+
 export const BookingServices = {
   createBookingIntoDB,
+  getAllBookings,
+  getBookingById,
+  updateBookingInDB,
+  deleteBookingInDB,
 };
