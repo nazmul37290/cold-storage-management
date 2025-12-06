@@ -1,6 +1,6 @@
 export type TBooking = {
   sl: string;                              // Serial number
-  bookingType: 'Normal' | 'Paid';
+  bookingType: string;
   bookingNo: string;
 
   // Customer Details (Sent from frontend)

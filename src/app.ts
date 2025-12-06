@@ -6,7 +6,7 @@ import router from './app/routes';
 const app: Application = express();
 
 app.use(express.json());
-app.use(cors({origin:['https://cold-storage-front.vercel.app','https://localhost:3000'],credentials:true}));
+app.use(cors({origin:['https://cold-storage-front.vercel.app','http://localhost:3000'],credentials:true}));
 
 app.use('/api', router);
 app.get('/', (req: Request, res: Response) => {

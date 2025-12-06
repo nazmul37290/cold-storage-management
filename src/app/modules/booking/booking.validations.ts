@@ -3,7 +3,7 @@ import { z } from 'zod';
 const createBookingValidationSchema = z.object({
   body:z.object({
     sl: z.string(),
-    bookingType: z.enum(['Normal', 'Paid']),
+    bookingType: z.string(),
     bookingNo: z.string(),
     customerName: z.string(),
     address: z.string(),
@@ -19,7 +19,7 @@ const createBookingValidationSchema = z.object({
 const updateBookingValidationSchema = z.object({
   body:z.object({
     sl: z.string().optional(),
-    bookingType: z.enum(['Normal', 'Paid']).optional(),
+    bookingType: z.string().optional(),
     bookingNo: z.string().optional(),
     customerName: z.string().optional(),
     address: z.string().optional(),

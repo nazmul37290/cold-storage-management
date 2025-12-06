@@ -4,7 +4,7 @@ import { TBooking } from './booking.interface';
 const bookingSchema = new Schema<TBooking>(
   {
     sl: { type: String, required: true },
-    bookingType: { type: String, enum: ['Normal', 'Paid'], required: true },
+    bookingType: { type: String, required: true },
     bookingNo: { type: String, required: true },
 
     customerName: { type: String, required: true },

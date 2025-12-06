@@ -8,7 +8,7 @@ const router = express.Router();
 
 // Create Booking
 router.post(
-  '/create-booking',
+  '/',
   validateRequest(bookingValidation.createBookingValidationSchema),
   BookingController.createBooking,
 );
