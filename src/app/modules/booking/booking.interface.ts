@@ -11,7 +11,7 @@ export type TBooking = {
   qty: number;                              // Bags
   rate: number;
   amount: number;                           // Manual / Auto
-  paid: number;
+
   balance: number;                          // Manual / Auto
 
   date: string;

@@ -11,7 +11,6 @@ const createBookingValidationSchema = z.object({
     qty: z.number(),
     rate: z.number(),
     amount: z.number(),
-    paid: z.number(),
     balance: z.number(),
     date: z.string(),
   })
@@ -27,7 +26,6 @@ const updateBookingValidationSchema = z.object({
     qty: z.number().optional(),
     rate: z.number().optional(),
     amount: z.number().optional(),
-    paid: z.number().optional(),
     balance: z.number().optional(),
     date: z.string().optional(),
   })
