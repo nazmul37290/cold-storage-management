@@ -7,7 +7,7 @@ const createCustomerInDB = async (data: TCustomer) => {
 };
 
 const getAllCustomers = async () => {
-  const result = await CustomerModel.find();
+  const result = await CustomerModel.find().sort({createdAt:'desc'});
   return result;
 };
 

@@ -1,28 +1,60 @@
 import { TBooking } from './booking.interface';
 import { BookingModel } from './booking.model';
 import { CustomerModel } from '../customer/customer.model';
+import mongoose from 'mongoose';
 
 const createBookingIntoDB = async (payload: TBooking) => {
-  // 1. Create customer first
-  const createdCustomer = await CustomerModel.create({
-    customerId: 'CUS-' + Date.now(),
-    name: payload.customerName,
-    address: payload.address,
-    phone: payload.phone,
-  });
+  const session = await mongoose.startSession();
 
-  // 2. Add customerId into booking
-  payload.customerId = createdCustomer.customerId;
+  try {
+    session.startTransaction();
 
-  // 3. Create booking
-  const result = await BookingModel.create(payload);
+    // 1. Check customer
+    let customer = await CustomerModel
+      .findOne({ phone: payload.phone })
+      
 
-  return result;
+    // 2. Create customer if not exists
+    if (!customer) {
+     let customer = await CustomerModel.create(
+        [
+          {
+            customerId: "CUS-" + Date.now(),
+            name: payload.customerName,
+            address: payload.address,
+            phone: payload.phone,
+          },
+        ],
+        { session }
+      );
+
+      payload.customerId = customer[0]?.customerId;
+    } else {
+      payload.customerId = customer.customerId;
+    }
+
+    // 3. Create booking
+    const booking = await BookingModel.create(
+      [payload],
+      { session }
+    );
+
+    // 4. Commit transaction
+    await session.commitTransaction();
+    session.endSession();
+
+    return booking[0];
+  } catch (error) {
+    // Rollback on error
+    await session.abortTransaction();
+    session.endSession();
+    throw error;
+  }
 };
 
 
 const getAllBookings = async () => {
-  const result = await BookingModel.find();
+  const result = await BookingModel.find().sort({createdAt:-1});
   return result;
 };
 
