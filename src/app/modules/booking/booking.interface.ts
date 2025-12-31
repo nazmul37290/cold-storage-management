@@ -1,3 +1,5 @@
+import { Schema, Types } from "mongoose";
+
 export type TBooking = {
   sl: string;                              // Serial number
   bookingType: string;
@@ -12,11 +14,11 @@ export type TBooking = {
   rate: number;
   amount: number;                           // Manual / Auto
 
-  balance: number;                          // Manual / Auto
+                          // Manual / Auto
 
   date: string;
 
-  customerId?: string;                      // Auto filled after creating Customer
+  customerId?:Types.ObjectId;                      // Auto filled after creating Customer
   createdAt?: Date;
   updatedAt?: Date;
 };

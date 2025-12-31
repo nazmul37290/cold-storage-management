@@ -28,9 +28,9 @@ const createBookingIntoDB = async (payload: TBooking) => {
         { session }
       );
 
-      payload.customerId = customer[0]?.customerId;
+      payload.customerId = customer[0]?._id;
     } else {
-      payload.customerId = customer.customerId;
+      payload.customerId = customer._id;
     }
 
     // 3. Create booking
@@ -65,8 +65,18 @@ const getBookingById = async (bookingNo: string) => {
 };
 
 const updateBookingInDB = async (bookingNo: string, data: Partial<TBooking>) => {
-  console.log(bookingNo)
+ 
   const result = await BookingModel.findByIdAndUpdate( bookingNo , data, { new: true });
+  if(result){
+    const newCustomerData= {
+      name:result.customerName,
+      address:result.address,
+      phone:result?.phone
+    }
+    const customer= await CustomerModel.findByIdAndUpdate(result?.customerId,newCustomerData,{new:true});
+  }
+
+
   return result;
 };
 

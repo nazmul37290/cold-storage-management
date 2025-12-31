@@ -14,7 +14,7 @@ const bookingSchema = new Schema<TBooking>(
     qty: { type: Number, required: true },
     rate: { type: Number, required: true },
     amount: { type: Number, required: true },
-    balance: { type: Number, required: true },
+    
 
     date: { type: String, required: true },
 
