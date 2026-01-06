@@ -36,6 +36,27 @@ const getStockOutById = catchAsync(async (req, res) => {
   });
 });
 
+const getBookingDetailsBySrNo=catchAsync(async(req,res)=>{
+  const {srNo}= req.params;
+  const result= await StockOutServices.getBookingDetailsBySrNo(srNo);
+
+  if(!result) return res.status(404).json({
+    success:false,
+    message:'No matching stock in record found',
+    data:null,
+  })
+
+  res.status(200).json({
+    success:true,
+    message:'Stock in record retrieved successfully',
+    data:{
+      customerName:result.customerName,
+      bookingNo:result.bookingNo,
+      availableBags:result.availableBags
+    }
+  })
+})
+
 const updateStockOut = catchAsync(async (req, res) => {
   const { id } = req.params;
   const  data  = req.body;
@@ -66,4 +87,5 @@ export const StockOutController = {
    getStockOutById,
    updateStockOut,
    deleteStockOut,
+   getBookingDetailsBySrNo
 };

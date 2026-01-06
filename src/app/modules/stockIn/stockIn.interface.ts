@@ -5,6 +5,7 @@ export type TStockIn = {
   customerName: string;
   bagsIn: number;
   rate: number;
+  availableBags?:number;
   totalAmount: number;
 
   date: string;
