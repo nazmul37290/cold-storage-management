@@ -1,15 +1,11 @@
-export type TStockIn = {
-  srNo: string;
+export type TStockOut = {
+srNo: string;
   bookingNo: string;
-
   customerName: string;
-  bagsIn: number;
+  bagsOut: number;
   rate: number;
-  availableBags?:number;
   totalAmount: number;
-
   date: string;
-
   createdAt?: Date;
   updatedAt?: Date;
 };
