@@ -15,19 +15,20 @@ router.post(
 
 // Get All Bookings
 router.get('/', BookingController.getAllBookings);
+router.get('/custom-bookings-report', BookingController.getCustomBookingsReport);
 
 // Get Booking by Booking No
-router.get('/:bookingNo', BookingController.getBookingById);
+router.get('/:id', BookingController.getBookingById);
 
 // Update Booking
 
 router.patch(
-  '/:bookingNo',
+  '/:id',
   validateRequest(bookingValidation.updateBookingValidationSchema),
   BookingController.updateBooking,
 );
 
 // Delete Booking
-router.delete('/:bookingNo', BookingController.deleteBooking);
+router.delete('/:id', BookingController.deleteBooking);
 
 export const BookingRoutes = router;

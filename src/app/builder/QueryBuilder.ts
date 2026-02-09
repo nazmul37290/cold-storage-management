@@ -9,6 +9,31 @@ class QueryBuilder<T> {
         this.query = query;
     }
 
+ dateRange(field = "date") {
+  const startDate = this.query.startDate as string | undefined;
+  const endDate = this.query.endDate as string | undefined;
+
+  if (!startDate && !endDate) return this;
+
+  const range: Record<string, Date> = {};
+
+  if (startDate) {
+    const s = new Date(startDate);
+    s.setHours(0, 0, 0, 0);
+    range.$gte = s;
+  }
+
+  if (endDate) {
+    const e = new Date(endDate);
+    e.setHours(23, 59, 59, 999);
+    range.$lte = e;
+  }
+
+  this.modelQuery = this.modelQuery.find({ [field]: range } as any);
+  return this;
+}
+
+
     search(searchableFields: string[]) {
         const searchTerm=this?.query?.searchTerm
         if (searchTerm) {
@@ -23,7 +48,7 @@ class QueryBuilder<T> {
 
     filter() {
         const queryObj = { ...this.query };
-        const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
+        const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields','startDate','endDate'];
         excludeFields.forEach((el) => delete queryObj[el]);
 
         this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>)

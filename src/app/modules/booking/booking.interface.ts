@@ -1,22 +1,14 @@
-export type TBooking = {
-  sl: string;                              // Serial number
-  bookingType: string;
+export type TBooking = {                          
+  bookingType: "paid" | "normal";
   bookingNo: string;
-
-  // Customer Details (Sent from frontend)
   customerName: string;
   address: string;
   phone: string;
-
-  qty: number;                              // Bags
+  qtyOfBags: number;                           
   rate: number;
-  amount: number;                           // Manual / Auto
-
-  balance: number;                          // Manual / Auto
-
-  date: string;
-
-  customerId?: string;                      // Auto filled after creating Customer
+  amount: number;
+  date: Date;
+  advanceAmount?: string;                     
   createdAt?: Date;
   updatedAt?: Date;
 };

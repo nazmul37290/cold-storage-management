@@ -2,8 +2,11 @@ import catchAsync from '../../utils/catchAsync';
 import { BookingServices } from './booking.services';
 
 const createBooking = catchAsync(async (req, res) => {
-  const data = req.body;
-  const result = await BookingServices.createBookingIntoDB(data);
+   const payload = {
+    ...req.body,
+    date: new Date(req.body.date), // ✅ convert ONCE here
+  };
+  const result = await BookingServices.createBookingIntoDB(payload);
 
   res.status(200).json({
     success: true,
@@ -13,7 +16,18 @@ const createBooking = catchAsync(async (req, res) => {
 });
 
 const getAllBookings = catchAsync(async (req, res) => {
-  const result = await BookingServices.getAllBookings();
+    const query=req?.query
+  const result = await BookingServices.getAllBookings(query);
+
+  res.status(200).json({
+    success: true,
+    message: 'Bookings retrieved successfully',
+    data: result,
+  });
+});
+const getCustomBookingsReport = catchAsync(async (req, res) => {
+    const query=req?.query
+  const result = await BookingServices.getCustomBookingsReport(query);
 
   res.status(200).json({
     success: true,
@@ -23,8 +37,8 @@ const getAllBookings = catchAsync(async (req, res) => {
 });
 
 const getBookingById = catchAsync(async (req, res) => {
-  const { bookingNo } = req.params;
-  const result = await BookingServices.getBookingById(bookingNo);
+  const { id } = req.params;
+  const result = await BookingServices.getBookingById(id);
 
   res.status(200).json({
     success: true,
@@ -34,10 +48,13 @@ const getBookingById = catchAsync(async (req, res) => {
 });
 
 const updateBooking = catchAsync(async (req, res) => {
-  const { bookingNo } = req.params;
-  const data = req.body;
+  const { id } = req.params;
+const updateData = {
+    ...req.body,
+    ...(req.body.date && { date: new Date(req.body.date) }),
+  };
 
-  const result = await BookingServices.updateBookingInDB(bookingNo, data);
+  const result = await BookingServices.updateBookingInDB(id, updateData);
 
   res.status(200).json({
     success: true,
@@ -47,8 +64,8 @@ const updateBooking = catchAsync(async (req, res) => {
 });
 
 const deleteBooking = catchAsync(async (req, res) => {
-  const { bookingNo } = req.params;
-  const result = await BookingServices.deleteBookingInDB(bookingNo);
+  const { id } = req.params;
+  const result = await BookingServices.deleteBookingInDB(id);
 
   res.status(200).json({
     success: true,
@@ -63,4 +80,5 @@ export const BookingController = {
   getBookingById,
   updateBooking,
   deleteBooking,
+  getCustomBookingsReport
 };
