@@ -156,16 +156,6 @@ const getBookingById = async (bookingNo: string) => {
 const updateBookingInDB = async (bookingNo: string, data: Partial<TBooking>) => {
  
   const result = await BookingModel.findByIdAndUpdate( bookingNo , data, { new: true });
-  if(result){
-    const newCustomerData= {
-      name:result.customerName,
-      address:result.address,
-      phone:result?.phone
-    }
-    const customer= await CustomerModel.findByIdAndUpdate(result?.customerId,newCustomerData,{new:true});
-  }
-
-
   return result;
 };
 
