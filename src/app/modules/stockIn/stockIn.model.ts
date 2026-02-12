@@ -3,24 +3,21 @@ import { TStockIn } from './stockIn.interface';
 
 const stockInSchema = new Schema<TStockIn>(
   {
-    srNo: { type: String, required: true, unique: true },
+    srNo: { type: String, required: true },
+    bookingId: { type: Schema.Types.ObjectId,ref:"Booking", required: true },
     bookingNo: { type: String, required: true },
-    customerName: { type: String, required: true },
     bagsIn: { type: Number, required: true },
-    availableBags: { type: Number, min: 0 },
-    rate: { type: Number, required: true },
-    totalAmount: { type: Number, required: true },
-    date: { type: String, required: true },
+    date: { type: Date, required: true },
   },
   { timestamps: true }
 );
 
-stockInSchema.pre("save", function (next) {
-  if (this.isNew) {
-    this.availableBags = this.bagsIn;
-  }
-  next();
-});
+// stockInSchema.pre("save", function (next) {
+//   if (this.isNew) {
+//     this.availableBags = this.bagsIn;
+//   }
+//   next();
+// });
 
 
 export const StockInModel = model<TStockIn>('StockIn', stockInSchema);

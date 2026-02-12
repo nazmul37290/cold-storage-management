@@ -11,7 +11,7 @@ const createBookingValidationSchema = z.object({
     address: z.string().min(1, "address is required"),
     phone: z.string().min(1, "phone is required"),
 
-    qtyOfBags: z.number().positive("qtyOfBags must be greater than 0"),
+    qtyOfBags: z.number().positive("Quantity of bags must be greater than 0"),
     rate: z.number().nonnegative("rate cannot be negative"),
     amount: z.number().nonnegative("amount cannot be negative"),
 

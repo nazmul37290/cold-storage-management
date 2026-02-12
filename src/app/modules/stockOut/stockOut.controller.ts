@@ -50,9 +50,7 @@ const getBookingDetailsBySrNo=catchAsync(async(req,res)=>{
     success:true,
     message:'Stock in record retrieved successfully',
     data:{
-      customerName:result.customerName,
-      bookingNo:result.bookingNo,
-      availableBags:result.availableBags
+      bookingNo:result.bookingId,
     }
   })
 })

@@ -13,7 +13,7 @@ router.post(
 
 router.get('/', StockInController.getAllStockIn);
 
-router.get('/:id', StockInController.getStockInBySRNo);
+router.get('/:id', StockInController.getStockInById);
 
 router.patch(
   '/:id',
