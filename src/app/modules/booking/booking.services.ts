@@ -4,7 +4,7 @@ import { BookingModel } from './booking.model';
 import QueryBuilder from '../../builder/QueryBuilder';
 import { PipelineStage } from 'mongoose';
 
-const buildDateMatch = (query: Record<string, unknown>) => {
+export const buildDateMatch = (query: Record<string, unknown>) => {
   const startDate = query.startDate as string | undefined;
   const endDate = query.endDate as string | undefined;
   
@@ -41,9 +41,7 @@ const createBookingIntoDB = async (payload: TBooking) => {
 
 
 const getAllBookings = async (query:Record<string,unknown>) => {
-  console.log(query)
 
-  
   const result = new QueryBuilder(BookingModel.find(),query).dateRange().filter();
   const data= await  result.modelQuery;
   console.log(data);

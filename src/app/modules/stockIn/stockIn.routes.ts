@@ -13,8 +13,8 @@ router.post(
 
 router.get('/', StockInController.getAllStockIn);
 
+router.get('/custom-report', StockInController.getCustomStockInReport);
 router.get('/:id', StockInController.getStockInById);
-
 router.patch(
   '/:id',
   validateRequest(stockInValidation.updateStockInSchema),

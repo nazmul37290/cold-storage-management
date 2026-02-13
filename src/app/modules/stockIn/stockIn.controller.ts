@@ -12,11 +12,23 @@ const createStockIn = catchAsync(async (req, res) => {
 });
 
 const getAllStockIn = catchAsync(async (req, res) => {
-  const result = await StockInServices.getAllStockIn();
+   const query=req?.query
+  const result = await StockInServices.getAllStockIn(query);
 
   res.status(200).json({
     success: true,
     message: "Stock In list retrieved successfully",
+    data: result,
+  });
+});
+
+const getCustomStockInReport = catchAsync(async (req, res) => {
+  const query=req?.query
+  console.log( 'controller hit')
+  const result = await StockInServices.getCustomStockInReport(query);
+  res.status(200).json({
+    success: true,
+    message: 'Stock In reports retrieved successfully',
     data: result,
   });
 });
@@ -60,4 +72,5 @@ export const StockInController = {
   getStockInById,
   updateStockIn,
   deleteStockIn,
+  getCustomStockInReport
 };
