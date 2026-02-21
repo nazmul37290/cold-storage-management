@@ -5,13 +5,9 @@ const stockOutSchema = new Schema<TStockOut>(
   {
     srNo: { type: String, required: true },
     bookingNo: { type: String, required: true },
-
-    customerName: { type: String, required: true },
+    bookingId: { type: Schema.Types.ObjectId, ref:"Booking", required: true },
     bagsOut: { type: Number, required: true },
-    rate: { type: Number, required: true },
-    totalAmount: { type: Number, required: true },
-
-    date: { type: String, required: true },
+    date: { type: Date, required: true },
   },
   {
     timestamps: true,

@@ -17,13 +17,15 @@ const createStockInIntoDB = async (payload: TStockIn) => {
 
 const getAllStockIn = async (query:Record<string,unknown>) => {
 
-  const result = new QueryBuilder(StockInModel.find(),query).dateRange().filter()
+let result;
+if(query.bookingNo){
+  result = new QueryBuilder(StockInModel.find().populate({path:'bookingId'}),query).dateRange().filter()
+}
+else{
+  result = new QueryBuilder(StockInModel.find().populate({path:'bookingId'}),query).dateRange()
+}
   const data= await result.modelQuery;
-  return await StockInModel.find()
-    .populate({
-    path:'bookingId',
-  })
-    .sort({ createdAt: -1 });
+ return data
 };
 
 const getCustomStockInReport = async (query:Record<string,unknown>) => {

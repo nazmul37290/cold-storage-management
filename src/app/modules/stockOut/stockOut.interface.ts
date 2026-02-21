@@ -1,11 +1,11 @@
+import { Types } from "mongoose";
+
 export type TStockOut = {
-srNo: string;
+  srNo: string;
   bookingNo: string;
-  customerName: string;
+  bookingId: Types.ObjectId;
   bagsOut: number;
-  rate: number;
-  totalAmount: number;
-  date: string;
+  date: Date;
   createdAt?: Date;
   updatedAt?: Date;
 };

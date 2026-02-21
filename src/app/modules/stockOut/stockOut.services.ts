@@ -1,25 +1,18 @@
+import QueryBuilder from '../../builder/QueryBuilder';
 import { StockInModel } from '../stockIn/stockIn.model';
 import { TStockOut } from './stockOut.interface';
 import { StockOutModel } from './stockOut.model';
 
 const createStockOutIntoDB = async (data: TStockOut) => {
-  // Calculate total amount if not provided
-  if (!data.totalAmount) {
-    data.totalAmount = data.bagsOut * data.rate;
-  }
 
- const stockIn = await StockInModel.findOneAndUpdate(
+
+ const stockIn = await StockInModel.find(
       {
         srNo: data.srNo,
-        availableBags: { $gte: data.bagsOut }, // ✅ ensure enough stock
-      },
-      {
-        $inc: { availableBags: -data.bagsOut },
-      },
-      { new: true }
+      }
     );
-
-  if(!stockIn){
+console.log(stockIn)
+  if(stockIn.length < 1){
     throw new Error('No matching Stock In record found for the provided sr no');
   }
 
@@ -27,9 +20,14 @@ const createStockOutIntoDB = async (data: TStockOut) => {
   return result;
 };
 
-const getAllStockOut = async () => {
-  const result = await StockOutModel.find().sort({createdAt:-1});
-  return result;
+const getAllStockOut = async (query:Record<string,unknown>) => {
+
+ const result = new QueryBuilder(StockOutModel.find().populate({path:'bookingId'}).sort({createdAt:-1}),query).dateRange().filter()
+
+  const data= await result.modelQuery;
+  console.log(data,'data')
+ return data;
+
 };
 
 const getStockOutById = async (id: string) => {
