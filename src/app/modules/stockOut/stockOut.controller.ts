@@ -38,6 +38,16 @@ const getStockOutById = catchAsync(async (req, res) => {
   });
 });
 
+const getCustomStockOutReport = catchAsync(async (req, res) => {
+  const query=req?.query
+  const result = await StockOutServices.getCustomStockOutReport(query);
+  res.status(200).json({
+    success: true,
+    message: 'Stock In reports retrieved successfully',
+    data: result,
+  });
+});
+
 const getBookingDetailsBySrNo=catchAsync(async(req,res)=>{
   const {srNo}= req.params;
   const result= await StockOutServices.getBookingDetailsBySrNo(srNo);
@@ -87,5 +97,6 @@ export const StockOutController = {
    getStockOutById,
    updateStockOut,
    deleteStockOut,
+   getCustomStockOutReport,
    getBookingDetailsBySrNo
 };

@@ -12,6 +12,7 @@ router.post(
 );
 
 router.get('/', StockOutController.getAllStockOut);
+router.get('/custom-report', StockOutController.getCustomStockOutReport);
 
 router.get('/:id', StockOutController.getStockOutById);
 router.get('/by-sr/:srNo', StockOutController.getBookingDetailsBySrNo);
