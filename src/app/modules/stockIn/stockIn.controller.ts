@@ -25,6 +25,7 @@ const getAllStockIn = catchAsync(async (req, res) => {
 const getCustomStockInReport = catchAsync(async (req, res) => {
   const query=req?.query
   const result = await StockInServices.getCustomStockInReport(query);
+  
   res.status(200).json({
     success: true,
     message: 'Stock In reports retrieved successfully',

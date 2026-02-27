@@ -18,12 +18,9 @@ const createStockInIntoDB = async (payload: TStockIn) => {
 const getAllStockIn = async (query:Record<string,unknown>) => {
 
 let result;
-if(query.bookingNo){
   result = new QueryBuilder(StockInModel.find().populate({path:'bookingId'}),query).dateRange().filter()
-}
-else{
-  result = new QueryBuilder(StockInModel.find().populate({path:'bookingId'}),query).dateRange()
-}
+
+
   const data= await result.modelQuery;
  return data
 };
@@ -97,7 +94,7 @@ const match = buildDateMatch(query);
   ];
 
   const [meta] = await StockInModel.aggregate(pipeline);
-console.log(meta,'meta')
+
   return (
     meta ?? {
       totalStockIns: 0,
