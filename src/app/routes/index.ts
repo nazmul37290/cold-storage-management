@@ -3,6 +3,7 @@ import { customerRoutes } from '../modules/customer/customer.routes';
 import { BookingRoutes } from '../modules/booking/booking.routes';
 import { stockInRoutes } from '../modules/stockIn/stockIn.routes';
 import { stockOutRoutes } from '../modules/stockOut/stockOut.routes';
+import { statisticsRoutes } from '../modules/statistics/statistics.routes';
 
 
 const router = express.Router();
@@ -23,6 +24,10 @@ const moduleRoutes = [
   {
     path: '/stock-outs',
     routes: stockOutRoutes,
+  },
+  {
+    path: '/statistics',
+    routes: statisticsRoutes,
   },
 ];
 
