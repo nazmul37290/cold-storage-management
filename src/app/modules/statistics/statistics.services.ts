@@ -40,9 +40,9 @@ const getAllStatistics = async (query: Record<string, unknown>) => {
   if (bookingNo) {
     bookingFilter.bookingNo = bookingNo;
   }
-  if (srNo) {
-    bookingFilter.srNo = srNo;
-  }
+  // if (srNo) {
+  //   bookingFilter.srNo = srNo;
+  // }
 
   /* ===============================
      BOOKINGS STATS
