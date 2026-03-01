@@ -9,7 +9,7 @@ import { BookingModel } from "../booking/booking.model";
 
 
 const getAllStatistics = async (query: Record<string, unknown>) => {
-  const { startDate, endDate, bookingNo } = query;
+  const { startDate, endDate, bookingNo,srNo } = query;
 
   /* ===============================
      DATE FILTER
@@ -39,6 +39,9 @@ const getAllStatistics = async (query: Record<string, unknown>) => {
 
   if (bookingNo) {
     bookingFilter.bookingNo = bookingNo;
+  }
+  if (srNo) {
+    bookingFilter.srNo = srNo;
   }
 
   /* ===============================
@@ -97,7 +100,9 @@ const getAllStatistics = async (query: Record<string, unknown>) => {
   ================================= */
   const stockInFilter: any = { ...dateFilter };
   if (bookingNo) stockInFilter.bookingNo = bookingNo;
-
+if (srNo) {
+    stockInFilter.srNo = srNo;
+  }
   const stockInStats = await StockInModel.aggregate([
     { $match: stockInFilter },
     {
@@ -113,6 +118,7 @@ const getAllStatistics = async (query: Record<string, unknown>) => {
   ================================= */
   const stockOutFilter: any = { ...dateFilter };
   if (bookingNo) stockOutFilter.bookingNo = bookingNo;
+  if (srNo) stockOutFilter.srNo = srNo;
 
   const stockOutStats = await StockOutModel.aggregate([
     { $match: stockOutFilter },
